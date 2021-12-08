@@ -15,7 +15,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
 	bool found = false;
 	for(int offset = 0; (row_idx + offset < height_) ; offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
 	    break;
 	  }
           if(map[row_idx + offset][col_idx] != nullptr && (map[row_idx + offset][col_idx] -> team()) != team){
@@ -25,7 +25,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
 	found = false;
         for(int offset = 0; (row_idx - offset >= 0) ; offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
             break;
           }
           if(map[row_idx - offset][col_idx] != nullptr && (map[row_idx - offset][col_idx] -> team()) != team){
@@ -37,7 +37,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
 	found = false;
 	for(int offset = 0; (col_idx + offset < width_) ; offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
 	    break;
           }
           if(map[row_idx][col_idx + offset] != nullptr && (map[row_idx][col_idx + offset] -> team()) != team){
@@ -47,7 +47,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
 	found = false;
         for(int offset = 0; (col_idx - offset >= 0) ; offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
             break;
           }
           if(map[row_idx][col_idx - offset] != nullptr && (map[row_idx][col_idx - offset] -> team()) != team){
@@ -58,7 +58,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
 	found = false;
         for(int offset = 0; (row_idx + offset < height_) && (col_idx + offset < width_) ; offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
             break;
           }
           if(map[row_idx + offset][col_idx + offset] != nullptr && (map[row_idx + offset][col_idx + offset] -> team()) != team){
@@ -68,7 +68,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
         found = false;
         for(int offset = 0; (row_idx - offset >= 0) && (col_idx - offset >= 0); offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
             break;
           }
           if(map[row_idx - offset][col_idx - offset] != nullptr && (map[row_idx - offset][col_idx - offset] -> team()) != team){
@@ -79,7 +79,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
         found = false;
         for(int offset = 0; (row_idx + offset < height_) && (col_idx - offset >= 0) ; offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
             break;
           }
           if(map[row_idx + offset][col_idx - offset] != nullptr && (map[row_idx + offset][col_idx - offset] -> team()) != team){
@@ -89,7 +89,7 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
         found = false;
         for(int offset = 0; (row_idx - offset >= 0) && (col_idx + offset < width_) ; offset++){
           if(found) {
-            candidates.push_back(row_idx*size + col_idx);
+            candidates.push_back(row_idx*(width_+height_) + col_idx);
             break;
           }
           if(map[row_idx - offset][col_idx + offset] != nullptr && (map[row_idx - offset][col_idx + offset] -> team()) != team){
