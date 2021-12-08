@@ -8,96 +8,61 @@ CheckUtil* CheckUtil::GetInstance() {
 }
 vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
   // 상하좌우 대각 가능
-  vector<int> candidates;
   for(int row_idx = 0; row_idx < height_ ; row_idx++) {
     for(int col_idx =0 ; col_idx < width_ ; col_idx++) {
         // 수직 조사
+      if(map[row_idx][col_idx] -> team() == team) {
 	bool found = false;
 	for(int offset = 0; (row_idx + offset < height_) ; offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-	    break;
-	  }
-          if(map[row_idx + offset][col_idx] != nullptr && (map[row_idx + offset][col_idx] -> team()) != team){
-            found = true;
-	  }
+          check4target(row_idx, col_idx, offset, 0);
 	}
 	found = false;
         for(int offset = 0; (row_idx - offset >= 0) ; offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-            break;
-          }
-          if(map[row_idx - offset][col_idx] != nullptr && (map[row_idx - offset][col_idx] -> team()) != team){
-            found = true;
-          }
+          check4target(row_idx, col_idx, -offset, 0);
         }
 
 	// 수평 조사
 	found = false;
 	for(int offset = 0; (col_idx + offset < width_) ; offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-	    break;
-          }
-          if(map[row_idx][col_idx + offset] != nullptr && (map[row_idx][col_idx + offset] -> team()) != team){
-            found = true;
-          }
+          check4target(row_idx, col_idx, 0, offset);
         }
 	found = false;
         for(int offset = 0; (col_idx - offset >= 0) ; offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-            break;
-          }
-          if(map[row_idx][col_idx - offset] != nullptr && (map[row_idx][col_idx - offset] -> team()) != team){
-            found = true;
-          }
+          check4target(row_idx, col_idx, 0, -offset);
         }
 	// 대각 조사- 우상향
 	found = false;
         for(int offset = 0; (row_idx + offset < height_) && (col_idx + offset < width_) ; offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-            break;
-          }
-          if(map[row_idx + offset][col_idx + offset] != nullptr && (map[row_idx + offset][col_idx + offset] -> team()) != team){
-            found = true;
-          }
+          check4target(row_idx, col_idx, offset, offset);
         }
         found = false;
         for(int offset = 0; (row_idx - offset >= 0) && (col_idx - offset >= 0); offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-            break;
-          }
-          if(map[row_idx - offset][col_idx - offset] != nullptr && (map[row_idx - offset][col_idx - offset] -> team()) != team){
-            found = true;
-          }
+          check4target(row_idx, col_idx, -offset, -offset);
         }
 	// 대각 조사 - 우하향
         found = false;
         for(int offset = 0; (row_idx + offset < height_) && (col_idx - offset >= 0) ; offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-            break;
-          }
-          if(map[row_idx + offset][col_idx - offset] != nullptr && (map[row_idx + offset][col_idx - offset] -> team()) != team){
-            found = true;
-          }
+          check4target(row_idx, col_idx, offset, -offset); 
         }
         found = false;
         for(int offset = 0; (row_idx - offset >= 0) && (col_idx + offset < width_) ; offset++){
-          if(found) {
-            candidates.push_back(row_idx*(width_+height_) + col_idx);
-            break;
-          }
-          if(map[row_idx - offset][col_idx + offset] != nullptr && (map[row_idx - offset][col_idx + offset] -> team()) != team){
-            found = true;
-          }
+	  check4target(row_idx, col_idx, -offset, offset);
         }
     }
   }
   candidates.erase(unique(candidates.begin(),candidates.end()),candidates.end());
   return candidates;
 }
+CheckUtil::check4target(const int pos_x, const int pos_y, const int offset_x, const int offset_y){
+  if(found) {
+    candidates_.push_back(pos_x*(width_+height_) + pos_y);
+    if(map[pos_x + offset_x][pos_y + offset_y] != nullptr && (map[pos_x + offset_x][pos_y + offset_y] -> team()) != team){
+      continue;
+    } else {
+      break;
+    }
+  }
+  if(map[pos_x + offset_x][pos_y + offset_y] != nullptr && (map[pos_x + offset_x][pos_y + offset_y] -> team()) != team){
+    found = true;
+  }
+} 
