@@ -70,3 +70,45 @@ void CheckUtil::check4target(const int pos_x, const int pos_y, const int offset_
   }
   return;
 } 
+
+void CheckUtil::change(const Node* map[][], const Node* node) {
+
+    int pos_x = node->pos_x();
+    int pos_y = node->pos_y();
+
+    if ((pos_x - 1) >= 0 && pos_y - 1 >= 0)) {
+
+    if (map[pos_x - 1][pos_y] != nullptr) {
+        if (node->team() == false) {
+            map[pos_x - 1][pos_y] = new Node(!(node->team()), pos_x - 1, pos_y);
+        }
+        else {
+            map[pos_x - 1][pos_y] = new Node(!(node.team()), pos_x - 1, pos_y);
+        }
+    }
+    else if (map[pos_x][pos_y - 1] != nullptr) {
+        if (node.team() == false) {
+            map[pos_x][pos_y - 1] = new Node(!(node->team()), pos_x, pos_y - 1);
+        }
+        else {
+            map[pos_x][pos_y - 1] = new Node(!(node->team()), pos_x, pos_y - 1);
+        }
+    }
+    else if (map[pos_x + 1][pos_y - 1] != nullptr) {
+        if (node.team() == false) {
+            map[pos_x + 1][pos_y - 1] = new Node(!(node->team()), pos_x + 1, pos_y - 1);
+        }
+        else {
+            map[pos_x + 1][pos_y - 1] = new Node(!(node->team()), pos_x + 1, pos_y - 1);)
+        }
+    }
+    else if (map[pos_x - 1][pos_y + 1] != nullptr) {
+        if (node.team() == false) {
+            map[pos_x - 1][pos_y + 1] = new Node(!(node->team()), pos_x - 1, pos_y + 1);
+        }
+        else {
+            map[pos_x - 1][pos_y + 1] = new Node(!(node->team()), pos_x - 1, pos_y + 1);
+        }
+    }
+    }
+}
