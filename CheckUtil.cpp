@@ -6,6 +6,9 @@ CheckUtil* CheckUtil::GetInstance() {
   }
   return instance_;
 }
+void CheckUtil::init(const int width, const int height) {
+  width_ = width; height_ = height;
+}
 vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
   // 상하좌우 대각 가능
   for(int row_idx = 0; row_idx < height_ ; row_idx++) {
