@@ -4,7 +4,7 @@
 class CheckUtil {
  public:
   CheckUtil* GetInstance();
-  void check(const Node* node);
+  void check(const Node*[][] map, const bool team) const;
  private:
   CheckUtil();
   static CheckUtil* instance_; 

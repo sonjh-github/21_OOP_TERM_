@@ -6,6 +6,6 @@ CheckUtil* CheckUtil::GetInstance() {
   }
   return instance_;
 }
-CheckUtil::check(const Node* node){
+vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
   
 }
