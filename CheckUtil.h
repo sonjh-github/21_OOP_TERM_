@@ -7,6 +7,7 @@ class CheckUtil {
   vector<int> Candidates(const Node*[][] map, const bool team) const;
  private:
   CheckUtil();
+  void check4target();
   vector<int> candidates_;
   static CheckUtil* instance_; 
 };

@@ -14,50 +14,50 @@ vector<int> CheckUtil::Candidates(const Node*[][] map, const bool team) const {
       if(map[row_idx][col_idx] -> team() == team) {
 	bool found = false;
 	for(int offset = 0; (row_idx + offset < height_) ; offset++){
-          check4target(row_idx, col_idx, offset, 0);
+          check4target(row_idx, col_idx, offset, 0, found);
 	}
 	found = false;
         for(int offset = 0; (row_idx - offset >= 0) ; offset++){
-          check4target(row_idx, col_idx, -offset, 0);
+          check4target(row_idx, col_idx, -offset, 0, found);
         }
 
 	// 수평 조사
 	found = false;
 	for(int offset = 0; (col_idx + offset < width_) ; offset++){
-          check4target(row_idx, col_idx, 0, offset);
+          check4target(row_idx, col_idx, 0, offset, found);
         }
 	found = false;
         for(int offset = 0; (col_idx - offset >= 0) ; offset++){
-          check4target(row_idx, col_idx, 0, -offset);
+          check4target(row_idx, col_idx, 0, -offset, found);
         }
 	// 대각 조사- 우상향
 	found = false;
         for(int offset = 0; (row_idx + offset < height_) && (col_idx + offset < width_) ; offset++){
-          check4target(row_idx, col_idx, offset, offset);
+          check4target(row_idx, col_idx, offset, offset, found);
         }
         found = false;
         for(int offset = 0; (row_idx - offset >= 0) && (col_idx - offset >= 0); offset++){
-          check4target(row_idx, col_idx, -offset, -offset);
+          check4target(row_idx, col_idx, -offset, -offset, found);
         }
 	// 대각 조사 - 우하향
         found = false;
         for(int offset = 0; (row_idx + offset < height_) && (col_idx - offset >= 0) ; offset++){
-          check4target(row_idx, col_idx, offset, -offset); 
+          check4target(row_idx, col_idx, offset, -offset, found); 
         }
         found = false;
         for(int offset = 0; (row_idx - offset >= 0) && (col_idx + offset < width_) ; offset++){
-	  check4target(row_idx, col_idx, -offset, offset);
+	  check4target(row_idx, col_idx, -offset, offset, found);
         }
     }
   }
   candidates.erase(unique(candidates.begin(),candidates.end()),candidates.end());
   return candidates;
 }
-CheckUtil::check4target(const int pos_x, const int pos_y, const int offset_x, const int offset_y){
+void CheckUtil::check4target(const int pos_x, const int pos_y, const int offset_x, const int offset_y, const bool found){
   if(found) {
     candidates_.push_back(pos_x*(width_+height_) + pos_y);
     if(map[pos_x + offset_x][pos_y + offset_y] != nullptr && (map[pos_x + offset_x][pos_y + offset_y] -> team()) != team){
-      continue;
+      return;
     } else {
       break;
     }
@@ -65,4 +65,5 @@ CheckUtil::check4target(const int pos_x, const int pos_y, const int offset_x, co
   if(map[pos_x + offset_x][pos_y + offset_y] != nullptr && (map[pos_x + offset_x][pos_y + offset_y] -> team()) != team){
     found = true;
   }
+  return;
 } 
